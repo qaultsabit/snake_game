@@ -1,10 +1,10 @@
 use std::collections::LinkedList;
 
-use piston_window::{math, types::Color, Context, G2d};
+use piston_window::{types::Color, Context, G2d};
 
 use crate::draw::draw_block;
 
-const SNAKE_COLOR: Color = [1.53, 1.53, 0.0, 1.0];
+const SNAKE_COLOR: Color = [0.3, 0.3, 0.3, 1.0];
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum Direction {
@@ -63,9 +63,8 @@ impl Snake {
     }
 
     pub fn move_forward(&mut self, dir: Option<Direction>) {
-        match dir {
-            Some(d) => self.direction = d,
-            None => (),
+        if let Some(d) = dir {
+            self.direction = d
         }
 
         let (last_x, last_y) = self.head_position();
@@ -101,9 +100,8 @@ impl Snake {
         let (head_x, head_y) = self.head_position();
 
         let mut moving_dir = self.direction;
-        match dir {
-            Some(d) => moving_dir = d,
-            None => {}
+        if let Some(d) = dir {
+            moving_dir = d
         }
 
         match moving_dir {
